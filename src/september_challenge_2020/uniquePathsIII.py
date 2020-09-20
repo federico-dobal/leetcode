@@ -51,14 +51,13 @@ class Graph:
 
         # Mark the current node as visited and store in path
         visited[u] = True
-        path.append(u)
+        path += 1
         ans = 0
 
         # print if target reached
         if u == d:
-            if len(path) == N:
+            if path == N:
                 ans += 1
-
         else:
             # Not target reached, check each of its neighbours
             for i in self.graph[u]:
@@ -66,7 +65,7 @@ class Graph:
                     ans += self.printAllPathsRec(i, d, visited, path, N)
 
         # Remove current vertex from path[] and mark it as unvisited
-        path.pop()
+        path -= 1
         visited[u] = False
         return ans
 
@@ -76,7 +75,7 @@ class Graph:
             return 0
 
         # Call the recursive helper function to print all paths
-        return self.printAllPathsRec(s, d, dict([(v, False) for v in self.V]), [], N)
+        return self.printAllPathsRec(s, d, dict([(v, False) for v in self.V]), 0, N)
 
 
 class Solution(object):
@@ -111,14 +110,18 @@ class Solution(object):
 
         return g.printAllPaths(s, e, len(g.V))
 
+
+s = Solution()
+
 grid = [[1,0,0,0],
         [0,0,0,0],
         [0,0,2,-1]]
+print (s.uniquePathsIII(grid))
 
 grid = [[1,0,0,0],
         [0,0,0,0],
         [0,0,0,2]]
-#grid = [[1,-1,2]]
+print (s.uniquePathsIII(grid))
 
-s = Solution()
+grid = [[1,-1,2]]
 print (s.uniquePathsIII(grid))
