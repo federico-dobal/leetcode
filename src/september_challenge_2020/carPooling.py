@@ -22,6 +22,8 @@ Input: trips = [[3,2,7],[3,7,9],[8,3,9]], capacity = 11
 Output: true
 
 """
+
+
 class Solution(object):
 
     def carPooling(self, trips, capacity):
@@ -33,16 +35,30 @@ class Solution(object):
         if not trips:
             return True
 
-        numbers = {}
+        N = len(trips)
 
-        for _, t in enumerate(trips):
-            for i in range(t[1], t[2]):
-                current_capacity = numbers.get(i, 0) + t[0]
-                if current_capacity > capacity:
-                    return False
-                else:
-                    numbers[i] = current_capacity
+        # sort trips by start time
+        trips_start = [[t[0], t[1]] for t in trips]
+        # sort trips by end time
+        trips_end = [[t[0], t[2]] for t in trips]
 
+        trips = None
+
+        # Sort trips by start end end time
+        trips_start.sort(key=lambda x: x[1])
+        trips_end.sort(key=lambda x: x[1])
+
+        # Loop on the trips and update current occupied capacity
+        current_capacity, start_index, end_index = 0, 0, 0
+        while start_index < N and end_index < N:
+            if trips_start[start_index][1] < trips_end[end_index][1]:
+                current_capacity += trips_start[start_index][0]
+                start_index += 1
+            else:
+                current_capacity -= trips_end[end_index][0]
+                end_index += 1
+            if current_capacity > capacity:
+                return False
         return True
 
 s = Solution()
