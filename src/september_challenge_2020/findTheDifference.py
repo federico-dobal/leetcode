@@ -17,6 +17,8 @@ e
 Explanation:
 'e' is the letter that was added.
 """
+
+
 class Solution(object):
     def findTheDifference(self, s, t):
         """
@@ -40,4 +42,4 @@ class Solution(object):
                 number_letters[c] = n - 1
 
 s = Solution()
-print(s.findTheDifference("abcd", "abcd"))
+print(s.findTheDifference("abcd", "abcde"))
