@@ -57,9 +57,30 @@ class Solution:
         res += current.val * pow(2, length - position)
         return res
 
+    def getDecimalValue2(self, head: ListNode) -> int:
+        current = head
+        s = ''
+        while current.next:
+            s += str(current.val)
+            current = current.next
+        s += str(current.val)
+        print(int(s, 2))
+        return int(s, 2)
+
+    def getDecimalValue3(self, head: ListNode) -> int:
+
+        res = 0
+        current = head
+        while True:
+            res = res << 1 | current.val
+            current = current.next
+            if not current:
+                break
+        return res
+
 n12 = ListNode(1, None)
 n11 = ListNode(0, n12)
 n1 = ListNode(1, n11)
 
 s = Solution()
-print(s.getDecimalValue(n1))
+print(s.getDecimalValue3(n1))
